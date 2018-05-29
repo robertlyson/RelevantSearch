@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RelevantSearch.IntegrationTests", "RelevantSearch.IntegrationTests\RelevantSearch.IntegrationTests.csproj", "{CDEA1F6F-A43B-4601-95D1-40BAEAB9762B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelevantSearch.DataIndexer", "RelevantSearch.DataIndexer\RelevantSearch.DataIndexer.csproj", "{D77DE792-F79C-4F0A-B4C9-17A06DE4516D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDEA1F6F-A43B-4601-95D1-40BAEAB9762B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDEA1F6F-A43B-4601-95D1-40BAEAB9762B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDEA1F6F-A43B-4601-95D1-40BAEAB9762B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDEA1F6F-A43B-4601-95D1-40BAEAB9762B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77DE792-F79C-4F0A-B4C9-17A06DE4516D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77DE792-F79C-4F0A-B4C9-17A06DE4516D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77DE792-F79C-4F0A-B4C9-17A06DE4516D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77DE792-F79C-4F0A-B4C9-17A06DE4516D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CDA303A-F3BE-4487-B8B2-83E4D5EC8897}
+	EndGlobalSection
+EndGlobal
