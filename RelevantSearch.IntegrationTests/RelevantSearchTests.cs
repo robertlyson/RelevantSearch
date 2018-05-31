@@ -94,7 +94,8 @@ namespace RelevantSearch.IntegrationTests
         {
             var lookingFor = "mogran";
 
-            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
+                .Query(q => q.Fuzzy(fuz => fuz.Value(lookingFor).Field(f => f.LocationContact))));
 
             searchResponse.IsValid.ShouldBe(true);
 
