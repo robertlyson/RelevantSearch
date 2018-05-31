@@ -3,6 +3,7 @@
 ![](https://www.elastic.co/static/images/elastic-logo-200.png)
 
 ---
+<!-- page_number: true -->
 
 # Outline
 
@@ -133,7 +134,7 @@ Worked very well.
 
 # 4/7
 
-Unfortunately, few days later after we deployed this feature to users, it turned out something is wrong. Someone typed `Morgan` in search box and got as a result.
+Unfortunately, few days later after we deployed this feature to users, it turned out something is wrong. Someone typed `Morgan` in search box and got as a result:
 
 ![image](https://user-images.githubusercontent.com/2392583/40502676-fe739c4e-5f8b-11e8-8bb9-ece82b83f7e8.png)
 
@@ -175,7 +176,9 @@ SELECT TOP 1 [Id]
 or LOWER(LocationContact) like '%morgan%'
 ```
 
-![image](https://media.giphy.com/media/3osxYoT363g5uv72bm/giphy.gif)
+![image](https://media.giphy.com/media/3osxYoT363g5uv72bm/giphy.gif)'
+
+We will try to fix it later on .. I promise.
 
 ---
 
@@ -196,8 +199,6 @@ or LOWER(LocationContact) like '%morgan%'
 today:
 - very flexible/configurable search
 - alerting
-- some facts about elasticsearch
-- based on lucene(extends it with easier api, distributed nature)
 
 ---
 
@@ -207,7 +208,148 @@ today:
 
 some facts about elasticsearch:
 - based on lucene
-- simplify very comples lucene API with REST API
+- simplify very complex lucene API with REST API
 - distributed by nature
+
+---
+
+## Document based
+
+```
+{
+	"email": "john@smith.com",
+	"first_name": "John",
+	"last_name": "Smith",
+	"info": {
+		"bio": "Eco-warrior and defender of the weak",
+		"age": 25,
+		"interests": ["dolphins", "whales"]
+	},
+	"join_date": "2014/05/01"
+}
+```
+
+Document -> indexing -> index content / store document. 
+We will talk more about this process in the relevant search section.
+
+---
+
+## How to communicate with elasticsearch
+
+---
+
+# 1/6
+
+curl from cmd 
+`curl -XGET http://localhost:9200`
+
+---
+
+# 2/6
+
+kibana and dev tools
+
+![image](https://user-images.githubusercontent.com/2392583/40768166-cc7e8cca-64b4-11e8-9c48-1751dc5d49a8.png)
+This is a simple query returning 10 documents from all ES indices.
+
+---
+
+# 3/6
+
+elasticseatch clients - in our case that will be NEST
+
+---
+
+# 4/6
+
+Client init:
+```csharp
+var uri = new Uri("http://localhost:9200");
+var settings = new ConnectionSettings(uri);
+settings.DefaultIndex(IndexName); // so we don't need to specify index with each call on elasticClient
+settings.EnableDebugMode(); // because we want to see request/response body in IResponse from elasticClient
+var client = new ElasticClient(settings);
+```
+
+---
+
+# 5/6
+
+With NEST we have to options to write requests
+
+Fluent API:
+```csharp
+var searchResponse = client.Search<Project>(s => s
+    .Query(q => q
+        .MatchAll()
+    )
+);
+```
+
+---
+
+# 6/6
+
+Obiect initializer syntax:
+```
+var searchRequest = new SearchRequest<Project>
+{
+    Query = new MatchAllQuery()
+};
+```
+
+---
+
+## Indexing documents
+
+---
+
+# 1/3
+
+```
+PUT /megacorp/employee/1
+{
+    "first_name" : "John",
+    "last_name" :  "Smith",
+    "age" :        25,
+    "about" :      "I love to go rock climbing",
+    "interests": [ "sports", "music" ]
+}
+```
+
+`megacorp` - index name. Something like database in sql world(more or less)
+`employee` - type name, starting from ES 6.x, one per index. Something like table, not true in 100% e.g. terms were visible between types
+
+---
+
+# 2/3
+
+In NEST you can index document by doing(I'll do examples with fluent api)
+
+```csharp
+elasticClient.Index(
+    new Employee
+    {
+        FirstName = "John",
+        LastName = "Smith",
+        Age = 25,
+        About = "I love to go rock climbing",
+        Interests = new[] {"sports", "music"}
+    }, d => d.Index("megacorp").Type("employee"));
+```
+
+---
+
+# 3/3
+
+bulk operations
+
+```
+POST _bulk
+{ "index": { "_index": "megacorp", "_type": "employee", "_id": "2" } }
+{"first_name": "Jane","last_name": "Smith", "age": 32,"about": "I like to collect rock albums","interests": [ "music" ]}
+{ "index": { "_index": "megacorp", "_type": "employee", "_id": "3" } }
+{"first_name": "Douglas","last_name": "Fir","age": 35,"about": "I like to build cabinets","interests": [ "forestry" ]}
+```
 
 ---
