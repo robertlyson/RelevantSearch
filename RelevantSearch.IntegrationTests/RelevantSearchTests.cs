@@ -67,6 +67,24 @@ namespace RelevantSearch.IntegrationTests
                         .Fields(ff => ff.LocationName, ff => ff.LocationContact)))));
 
             searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+
+            actual[0].LocationName.ShouldBe("JP Morgan Retha, Ernser and Treutel");
+        }
+
+        [Test]
+        public async Task LookingForExactValues()
+        {
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
+                .Query(q => q.Term(t => t
+                    .Field(f => f.LocationZipCode.Suffix("keyword")).Value("48827-3158"))));
+
+            searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+
+            actual[0].LocationName.ShouldBe("Bruen, Konopelski and Leffler");
         }
 
         [Test]

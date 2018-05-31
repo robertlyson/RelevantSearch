@@ -402,3 +402,24 @@ GET /megacorp/employee/_search?q=last_name:Smith
 Handy for simple queries, command line scenarios.
 
 ---
+
+## Search with query DSL
+
+---
+
+## [Exercise 1 - relevant search](#exercise1)
+
+---
+
+```git clone https://github.com/robertlyson/RelevantSearch.git```
+
+---
+
+part 1 of - match
+
+```git checkout part1```
+
+Job to do:
+Find out branches where `LocationName` matches query `morgan`
+
+---
