@@ -136,7 +136,9 @@ namespace RelevantSearch.IntegrationTests
         {
             var lookingFor = "K and S";
 
-            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
+                .Query(q => q.Match(m => m
+                    .Query(lookingFor).Field(f => f.LocationName).Analyzer("synonyms_analyzer"))));
 
             searchResponse.IsValid.ShouldBe(true);
 

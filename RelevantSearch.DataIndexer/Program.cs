@@ -22,7 +22,8 @@ namespace RelevantSearch.DataIndexer
             var elasticClient = ElasticClientFactory.ElasticClient();
 
             DeleteIndex(elasticClient);
-            CreateIndex(elasticClient);
+            //CreateIndex(elasticClient);
+            CreateIndexSynonymsSupport(elasticClient);
 
             var size = 800;
             int totalTicks = branches.Count() / size;
@@ -60,6 +61,22 @@ namespace RelevantSearch.DataIndexer
         private static void CreateIndex(ElasticClient elasticClient)
         {
             var createIndexResponse = elasticClient.CreateIndex(elasticClient.ConnectionSettings.DefaultIndex);
+            if (createIndexResponse.IsValid) Console.WriteLine($"New index {Strings.IndexName} created");
+        }
+
+        private static void CreateIndexSynonymsSupport(ElasticClient elasticClient)
+        {
+            var createIndexResponse = elasticClient
+                .CreateIndex(elasticClient.ConnectionSettings.DefaultIndex, i => i.Settings(s => s
+                    .Analysis(a => a
+                        .Analyzers(an => an.Custom("synonyms_analyzer", aa => aa
+                            .Tokenizer("standard")
+                            .Filters("lowercase", "synonyms")))
+                        .TokenFilters(tf => tf
+                            .Lowercase("lowercase", l => l)
+                            .Synonym("synonyms", sy => sy
+                                .Synonyms("K&S, K and S, Kozey & Sons => Kozey and Sons"))))));
+
             if (createIndexResponse.IsValid) Console.WriteLine($"New index {Strings.IndexName} created");
         }
 
