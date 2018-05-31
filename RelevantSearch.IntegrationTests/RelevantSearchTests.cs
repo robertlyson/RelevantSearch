@@ -56,6 +56,19 @@ namespace RelevantSearch.IntegrationTests
             actual[0].LocationName.ShouldBe("JP Morgan Retha, Ernser and Treutel");
         }
 
+        [Test]
+        //find branch which zip code is 48827-3158
+        public async Task LookingForExactValues()
+        {
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+
+            searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+
+            actual[0].LocationName.ShouldBe("Bruen, Konopelski and Leffler");
+        }
+
         private static ElasticClient ElasticClient()
         {
             return ElasticClientFactory.ElasticClient();
