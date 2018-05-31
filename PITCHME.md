@@ -413,7 +413,7 @@ Handy for simple queries, command line scenarios.
 
 ```git clone https://github.com/robertlyson/RelevantSearch.git```
 
-and after build run `RelevantSearch.DataIndexer` app
+and after build run **RelevantSearch.DataIndexer** app
 
 ---
 
@@ -422,7 +422,7 @@ part 1 of 7 - match
 ```git checkout part1```
 
 Job to do:
-We are looking for branches with ```LocationName``` containing phrase ```morgan```.
+We are looking for branches with **LocationName** containing phrase **morgan**.
 
 ---
 
@@ -431,7 +431,7 @@ part 2 of 7 - terms
 ```git checkout part2```
 
 Job to do:
-Find branch with zip code ```48827-3158```
+Find branch with zip code **48827-3158**.
 
 ---
 
