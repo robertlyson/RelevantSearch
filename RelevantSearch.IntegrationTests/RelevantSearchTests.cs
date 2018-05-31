@@ -109,7 +109,19 @@ namespace RelevantSearch.IntegrationTests
         {
             var lookingFor = "morgan";
 
-            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
+                .Query(q => q.Bool(b => b
+                    .Should(
+                        sh => sh
+                            .Match(m => m
+                                .Query(lookingFor)
+                                .Field(f => f.LocationName)
+                                .Boost(2.0)),
+                        sh => sh
+                            .Match(m => m
+                                .Query(lookingFor)
+                                .Field(f => f.LocationContact)
+                                .Boost(0.5))))));
 
             searchResponse.IsValid.ShouldBe(true);
 
