@@ -104,6 +104,21 @@ namespace RelevantSearch.IntegrationTests
             actual[0].LocationContact.ShouldBe("Morgan Morar");
         }
 
+        [Test]
+        public async Task BoostingFields()
+        {
+            var lookingFor = "morgan";
+
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+
+            searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+
+            actual[0].LocationName.ShouldBe("JP Morgan Retha, Ernser and Treutel");
+            actual[1].LocationName.ShouldBe("Kozey and Sons");
+        }
+
         private static ElasticClient ElasticClient()
         {
             return ElasticClientFactory.ElasticClient();
