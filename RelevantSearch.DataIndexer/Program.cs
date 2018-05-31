@@ -22,8 +22,8 @@ namespace RelevantSearch.DataIndexer
             var elasticClient = ElasticClientFactory.ElasticClient();
 
             DeleteIndex(elasticClient);
-            CreateIndex(elasticClient);
-            //CreateIndexSynonymsSupport(elasticClient);
+            //CreateIndex(elasticClient);
+            CreateIndexSynonymsSupport(elasticClient);
 
             var size = 800;
             int totalTicks = branches.Count() / size;
@@ -86,18 +86,15 @@ namespace RelevantSearch.DataIndexer
             using (var zipFile = ZipFile.Read(filePath))
             {
                 var zipEntry = zipFile["branches.txt"];
-
-                bool skip = false;
+                
                 using (var s = new StreamReader(zipEntry.OpenReader()))
                 {
+                    //skip headers line
+                    var readLine = s.ReadLine();
                     while (!s.EndOfStream)
                     {
-                        var readLine = s.ReadLine();
-                        if (!skip)
-                        {
-                            skip = true;
-                            continue;
-                        }
+                        readLine = s.ReadLine();
+                        if (string.IsNullOrEmpty(readLine)) continue;
                         var strings = readLine.Split(";");
 
                         var goe = strings[9].Split(",");
