@@ -147,6 +147,18 @@ namespace RelevantSearch.IntegrationTests
             actual[0].LocationName.ShouldBe("Kozey and Sons");
         }
 
+        [Test]
+        public async Task JoiningItAll()
+        {
+            var lookingFor = "mogran";
+
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+
+            searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+        }
+
         private static ElasticClient ElasticClient()
         {
             return ElasticClientFactory.ElasticClient();
