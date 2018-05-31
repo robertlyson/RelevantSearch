@@ -422,7 +422,7 @@ part 1 of 7 - match
 ```git checkout part1```
 
 Job to do:
-We are looking for branches with `LocationName`containing phrase `morgan`.
+We are looking for branches with ```LocationName``` containing phrase ```morgan```.
 
 ---
 
@@ -468,7 +468,7 @@ part 6 of 7 - looking for synonyms
 ```git checkout part6```
 
 Job to do:
-Find branch ```Kozey and Sons``` by it's synonym `K and S`.
+Find branch ```Kozey and Sons``` by it's synonym ```K and S```.
 
 ---
 
