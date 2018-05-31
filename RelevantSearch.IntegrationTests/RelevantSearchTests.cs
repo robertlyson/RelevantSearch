@@ -42,29 +42,12 @@ namespace RelevantSearch.IntegrationTests
         }
 
         [Test]
-        //simple match to start with something
-        public async Task Match()
+        public async Task FindBranchesByName()
         {
             var lookingFor = "morgan";
 
             var searchResponse = ElasticClient().Search<Branch>(s => s.Query(q => q
                 .Match(m => m.Field(f => f.LocationName).Query(lookingFor))));
-
-            searchResponse.IsValid.ShouldBe(true);
-        }
-
-        [Test]
-        public async Task MultiMatch()
-        {
-            var lookingFor = "jp morgan";
-
-            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
-                .Query(q => q.MultiMatch(mm => mm
-                    .Query(lookingFor)
-                    //show minimum should match
-                    .MinimumShouldMatch(MinimumShouldMatch.Percentage(100.0))
-                    .Fields(f => f
-                        .Fields(ff => ff.LocationName, ff => ff.LocationContact)))));
 
             searchResponse.IsValid.ShouldBe(true);
 
@@ -85,6 +68,26 @@ namespace RelevantSearch.IntegrationTests
             var actual = searchResponse.Documents.ToList();
 
             actual[0].LocationName.ShouldBe("Bruen, Konopelski and Leffler");
+        }
+
+        [Test]
+        public async Task MultiMatch()
+        {
+            var lookingFor = "jp morgan";
+
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
+                .Query(q => q.MultiMatch(mm => mm
+                    .Query(lookingFor)
+                    //show minimum should match
+                    .MinimumShouldMatch(MinimumShouldMatch.Percentage(100.0))
+                    .Fields(f => f
+                        .Fields(ff => ff.LocationName, ff => ff.LocationContact)))));
+
+            searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+
+            actual[0].LocationName.ShouldBe("JP Morgan Retha, Ernser and Treutel");
         }
 
         [Test]
