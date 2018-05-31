@@ -75,7 +75,12 @@ namespace RelevantSearch.IntegrationTests
         {
             var lookingFor = "jp morgan";
 
-            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s
+                .Query(q => q.MultiMatch(mm => mm
+                    .Query(lookingFor)
+                    .MinimumShouldMatch(MinimumShouldMatch.Percentage(100.0))
+                    .Fields(f => f
+                        .Fields(ff => ff.LocationName, ff => ff.LocationContact)))));
 
             searchResponse.IsValid.ShouldBe(true);
 
