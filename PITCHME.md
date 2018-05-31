@@ -241,7 +241,9 @@ We will talk more about this process in the relevant search section.
 # 1/6
 
 curl from cmd 
-`curl -XGET http://localhost:9200`
+```
+curl -XGET http://localhost:9200
+```
 
 ---
 
@@ -275,7 +277,7 @@ var client = new ElasticClient(settings);
 
 # 5/6
 
-With NEST we have to options to write requests
+With NEST we have two options to write requests
 
 Fluent API:
 ```csharp
@@ -351,5 +353,52 @@ POST _bulk
 { "index": { "_index": "megacorp", "_type": "employee", "_id": "3" } }
 {"first_name": "Douglas","last_name": "Fir","age": 35,"about": "I like to build cabinets","interests": [ "forestry" ]}
 ```
+
+---
+
+## Retrieving a document
+
+---
+
+# 1/2
+
+```
+GET /megacorp/employee/1
+```
+
+---
+
+# 2/2
+
+```
+elasticClient.Get<Employee>(1);
+```
+or
+```
+await elasticClient.GetAsync<Employee>(1);
+```
+
+---
+
+## Search lite
+
+---
+
+# 1/2
+
+
+```
+GET /megacorp/employee/_search
+```
+
+---
+
+# 2/2
+
+```
+GET /megacorp/employee/_search?q=last_name:Smith
+```
+
+Handy for simple queries, command line scenarios.
 
 ---
