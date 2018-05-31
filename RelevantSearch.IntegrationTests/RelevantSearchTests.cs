@@ -70,6 +70,20 @@ namespace RelevantSearch.IntegrationTests
             actual[0].LocationName.ShouldBe("Bruen, Konopelski and Leffler");
         }
 
+        [Test]
+        public async Task MultiMatch()
+        {
+            var lookingFor = "jp morgan";
+
+            var searchResponse = await ElasticClient().SearchAsync<Branch>(s => s);
+
+            searchResponse.IsValid.ShouldBe(true);
+
+            var actual = searchResponse.Documents.ToList();
+
+            actual[0].LocationName.ShouldBe("JP Morgan Retha, Ernser and Treutel");
+        }
+
         private static ElasticClient ElasticClient()
         {
             return ElasticClientFactory.ElasticClient();
