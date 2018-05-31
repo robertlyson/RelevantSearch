@@ -440,11 +440,11 @@ part 3 of 7 - multi match
 ```git checkout part3```
 
 Job to do:
-Find branches which ```LocationName``` contain at least ```jp``` and ```morgan```.
+Find branches which *LocationName* contain at least ```jp``` and ```morgan```.
 
 ---
 
-part 4 of 7 - fuzzy
+part 4 of 7 - I'm not afraid of typos!
 
 ```git checkout part4```
 
