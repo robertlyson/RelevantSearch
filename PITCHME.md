@@ -417,7 +417,7 @@ and after build run **RelevantSearch.DataIndexer** app
 
 ---
 
-part 1 of 7 - match
+# part 1 of 7 - match
 
 ```git checkout part1```
 
@@ -426,7 +426,7 @@ We are looking for branches with **LocationName** containing phrase **morgan**.
 
 ---
 
-part 2 of 7 - terms
+# part 2 of 7 - terms
 
 ```git checkout part2```
 
@@ -435,7 +435,7 @@ Find branch with zip code **48827-3158**.
 
 ---
 
-part 3 of 7 - multi match
+# part 3 of 7 - multi match
 
 ```git checkout part3```
 
@@ -444,7 +444,7 @@ Find branches which **LocationName** contain at least **jp** and **morgan**.
 
 ---
 
-part 4 of 7 - I'm not afraid of typos!
+# part 4 of 7 - I'm not afraid of typos!
 
 ```git checkout part4```
 
@@ -454,7 +454,7 @@ Make our search typo aware. For query **mogran** we want to match branches with 
 
 ---
 
-part 5 of 7 - boosting some fields
+# part 5 of 7 - boosting some fields
 
 ```git checkout part5```
 
@@ -463,7 +463,7 @@ Job to do:
 
 ---
 
-part 6 of 7 - looking for synonyms
+# part 6 of 7 - looking for synonyms
 
 ```git checkout part6```
 
@@ -472,7 +472,7 @@ Find branch **Kozey and Sons** by it's synonym **K and S**.
 
 ---
 
-part 7 of 7 - joining it all together
+# part 7 of 7 - joining it all together
 
 
 ```git checkout part7```
