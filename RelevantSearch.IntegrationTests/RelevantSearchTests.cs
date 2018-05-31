@@ -46,13 +46,14 @@ namespace RelevantSearch.IntegrationTests
         {
             var lookingFor = "morgan";
 
-            var searchResponse = ElasticClient().Search<Branch>(s => s);
+            var searchResponse = ElasticClient().Search<Branch>(s => s.Query(q => q
+                .Match(m => m.Field(f => f.LocationName).Query(lookingFor))));
 
             searchResponse.IsValid.ShouldBe(true);
 
             var actual = searchResponse.Documents.ToList();
 
-            actual[0].LocationName.ShouldContain("morgan");
+            actual[0].LocationName.ShouldBe("JP Morgan Retha, Ernser and Treutel");
         }
 
         private static ElasticClient ElasticClient()
