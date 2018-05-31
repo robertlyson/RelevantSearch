@@ -440,7 +440,7 @@ part 3 of 7 - multi match
 ```git checkout part3```
 
 Job to do:
-Find branches which *LocationName* contain at least ```jp``` and ```morgan```.
+Find branches which **LocationName** contain at least **jp** and **morgan**.
 
 ---
 
@@ -450,7 +450,7 @@ part 4 of 7 - I'm not afraid of typos!
 
 
 Job to do:
-Make our search typo aware. For query ```mogran``` we want to match branches with ```LocationName``` containing ```morgan```.
+Make our search typo aware. For query **mogran** we want to match branches with **LocationName** containing **morgan**.
 
 ---
 
@@ -459,7 +459,7 @@ part 5 of 7 - boosting some fields
 ```git checkout part5```
 
 Job to do:
-```LocationName``` should be more importan than ```LocationContant```. 
+**LocationName** should be more importan than **LocationContant**. 
 
 ---
 
@@ -468,7 +468,7 @@ part 6 of 7 - looking for synonyms
 ```git checkout part6```
 
 Job to do:
-Find branch ```Kozey and Sons``` by it's synonym ```K and S```.
+Find branch **Kozey and Sons** by it's synonym **K and S**.
 
 ---
 
