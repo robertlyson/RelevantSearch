@@ -184,11 +184,12 @@ We will try to fix it later on .. I promise.
 
 # use cases 1/2
 
+- realtime search
 - very flexible/configurable search
 - faceted search (https://www.euro.com.pl/zlewozmywaki,_Schock,g!zlewozmywak-okragly.bhtml)
 - reporting
 - alerting
-- monitoring
+- monitoring(logstash, beats, kibana)
 - matching systems
 - autocompletion
 
@@ -403,7 +404,31 @@ Handy for simple queries, command line scenarios.
 
 ---
 
-## Search with query DSL
+## [What is relevant search?](#what-is-relevant-search)
+
+---
+
+Relevance search is ...
+
+- what is relevant search?
+- inverted index is the key
+- index mapping
+- search: full text, exact
+
+
+---
+
+# Inverted index 1/2
+
+What it looks like:
+https://gist.github.com/robertlyson/98f015868c9652db03300f794482bdab#what-is-relevant-search
+
+---
+
+# Inverted index 2/2
+
+How it works in action:
+https://sketchboard.me/BA33PjFmAmyz#/
 
 ---
 
@@ -479,5 +504,112 @@ Find branch **Kozey and Sons** by it's synonym **K and S**.
 
 Job to do:
 Combine together search technics: boosting, typos awareness and synonyms. 
+
+---
+
+## Geo Search
+
+---
+
+## Geo Point
+
+```json
+PUT /attractions
+{
+  "mappings": {
+    "restaurant": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+## Index some data 1/3
+
+There are three formats for ```geo_point```:
+
+```json
+PUT /attractions/restaurant/1
+{
+  "name":     "Chipotle Mexican Grill",
+  "location": "40.715, -74.011" 
+}
+```
+
+```40.715, -74.011``` -> lat,lon
+
+---
+
+## Index some data 2/3
+
+```json
+PUT /attractions/restaurant/2
+{
+  "name":     "Pala Pizza",
+  "location": { 
+    "lat":     40.722,
+    "lon":    -73.989
+  }
+}
+```
+
+---
+
+## Index some data 3/3
+
+```json
+PUT /attractions/restaurant/3
+{
+  "name":     "Mini Munchies Pizza",
+  "location": [ -73.983, 40.719 ] 
+}
+```
+
+```[-73.983, 40.719]``` -> lon,lat!
+
+---
+
+## Filtering by geo point
+
+- geo_bounding_box
+Find geo-points that fall within the specified rectangle.
+- geo_distance
+Find geo-points within the specified distance of a central point.
+- geo_distance_range
+Find geo-points within a specified minimum and maximum distance from a central point.
+- geo_polygon
+Find geo-points that fall within the specified polygon. This filter is very expensive. If you find yourself wanting to use it, you should be looking at geo-shapes instead.
+
+---
+
+## [Exercise 2 - coffeshop finder](#exercise2)
+
+---
+
+## [Exercise 3 - percolated query](#exercise3)
+
+---
+
+## [I want more](#i-want-more)
+
+- Elasticsearch: The Definitive Guide https://www.elastic.co/guide/en/elasticsearch/guide/2.x/index.html
+- NuSearch https://github.com/elastic/elasticsearch-net-example
+
+---
+
+## Last word
+
+Please give us your feedback! [Click](https://docs.google.com/forms/d/16R62Q5J6zpd5LtMCGs1LbNVMQ8uffW_JQ6yKzMKae4s/viewform?edit_requested=true)
+
+![image](https://cdn.discordapp.com/attachments/434287216068395008/449467777229783051/static_qr_code_without_logo.jpg)
 
 ---
