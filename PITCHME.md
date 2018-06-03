@@ -511,21 +511,19 @@ Combine together search technics: boosting, typos awareness and synonyms.
 
 ---
 
-## Geo Point
+## Geo Point - hands on .. kibana
 
 ```json
-PUT /attractions
+PUT attractions
+
+PUT attractions/_mapping/restaurant
 {
-  "mappings": {
-    "restaurant": {
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "location": {
-          "type": "geo_point"
-        }
-      }
+  "properties": {
+    "name": {
+      "type": "text"
+    },
+    "location": {
+      "type": "geo_point"
     }
   }
 }
@@ -582,7 +580,7 @@ PUT /attractions/restaurant/3
 
 - geo_bounding_box
 Find geo-points that fall within the specified rectangle.
-- geo_distance
+- **geo_distance**
 Find geo-points within the specified distance of a central point.
 - geo_distance_range
 Find geo-points within a specified minimum and maximum distance from a central point.
@@ -591,7 +589,142 @@ Find geo-points that fall within the specified polygon. This filter is very expe
 
 ---
 
+## Geo Distance Filter
+
+```json
+GET /attractions/restaurant/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_distance": {
+          "distance": "1km", 
+          "location": { 
+            "lat":  40.715,
+            "lon": -73.988
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+## Sorting by distance
+
+```json
+GET /attractions/restaurant/_search
+{
+  "query": {same as prev},
+  "sort": [
+    {
+      "_geo_distance": {
+        "location": {
+          "lat": 40.715,
+          "lon": -73.988
+        },
+        "unit": "km",
+        "order": "asc"
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Geo Aggregations 1/2
+
+```json
+GET /attractions/restaurant/_search
+{
+  "size": 0,
+  "aggs": {
+    "geo": {
+      "geo_distance": {
+        "field": "location",
+        "unit": "km", 
+        "origin": {
+          "lat": 40.715,
+          "lon": -73.988
+        },
+        "ranges": [
+          {
+            "from": 0,
+            "to": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+---
+
+## Geo Aggregations 2/2
+
+```json
+GET /attractions/restaurant/_search
+{
+  "size": 0,
+  "aggs": {
+    "geo": {
+      "geohash_grid": {
+        "field": "location",
+        "precision": 10
+      }
+    }
+  }
+}
+```
+
+Geohash? http://www.bigfastblog.com/geohash-intro
+
+---
+
 ## [Exercise 2 - coffeshop finder](#exercise2)
+
+---
+
+# part 1 of 1
+
+Fix ```DataHasBeenIndexedIntoElasticsearch``` test.
+
+Job to do:
+- indexing documents
+- refresh index
+- bulk index to speed up
+
+---
+
+# part 2 of 2
+
+Fix ```LocationIsOfTypeGeoPoint``` test.
+
+Job to do:
+- mapping - ```location``` field should of type ```goe_point```
+
+---
+
+# part 3 of 3
+
+Fix ```FindCoffeeNearMe``` test.
+
+Job to do:
+- write query to find coffe shops near codeschool - ```GeoDistance``` filter
+- add sort to find nearest places
+
+---
+
+# part 4 of 4
+
+Fix ```FindMyFavCoffeeNearMe``` test.
+
+Job to do:
+- find by name - ```BoolQuery``` with ```match``` query and ```GeoDistance``` filter
 
 ---
 
