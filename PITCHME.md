@@ -689,7 +689,7 @@ Geohash? http://www.bigfastblog.com/geohash-intro
 
 ---
 
-# part 1 of 1
+# part 1 of 4
 
 Fix ```DataHasBeenIndexedIntoElasticsearch``` test.
 
@@ -700,7 +700,7 @@ Job to do:
 
 ---
 
-# part 2 of 2
+# part 2 of 4
 
 Fix ```LocationIsOfTypeGeoPoint``` test.
 
@@ -709,7 +709,7 @@ Job to do:
 
 ---
 
-# part 3 of 3
+# part 3 of 4
 
 Fix ```FindCoffeeNearMe``` test.
 
