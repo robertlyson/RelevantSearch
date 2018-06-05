@@ -13,7 +13,7 @@
 - [What is relevant search?](#what-is-relevant-search)
 - [Exercise 1 - relevant search](#exercise1)
 - [Exercise 2 - coffeshop finder](#exercise2)
-- [Exercise 3 - percolated query](#exercise3)
+- [Exercise 3 - percolate query](#exercise3)
 - [I want more](#i-want-more)
 
 ---
@@ -728,7 +728,108 @@ Job to do:
 
 ---
 
-## [Exercise 3 - percolated query](#exercise3)
+## Percolate Query 1 of 4
+
+What is that?
+
+--- 
+
+## Percolate Query 2 of 4
+
+Standard flow: 
+**Document** -> indexing -> query -> searching -> do we have matching **documents**?
+
+---
+
+## Percolate Query 3 of 4
+
+Percolate flow: 
+**Query** -> indexing -> document -> searching -> do we have matching **queries**?
+
+---
+
+## Percolate Query 4 of 4
+
+For what I can use it?
+
+---
+
+## Percolate Query - hands on 1 of 4
+
+```json
+PUT /my-index
+{
+    "mappings": {
+        "_doc": {
+            "properties": {
+                "message": {
+                    "type": "text"
+                },
+                "query": {
+                    "type": "percolator"
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+## Percolate Query - hands on 2 of 4
+
+```json
+PUT /my-index/_doc/1?refresh
+{
+    "query" : {
+        "match" : {
+            "message" : "bonsai tree"
+        }
+    }
+}
+```
+
+---
+
+## Percolate Query - hands on 3 of 4
+
+```json
+GET /my-index/_search
+{
+    "query" : {
+        "percolate" : {
+            "field" : "query",
+            "document" : {
+                "message" : "A new bonsai tree in the office"
+            }
+        }
+    }
+}
+```
+
+---
+
+## Percolate Query - hands on 4 of 4
+
+```json
+GET /my-index/_search
+{
+    "query" : {
+        "percolate" : {
+            "field" : "query",
+            "document" : {
+                "message" : "robert"
+            }
+        }
+    }
+}
+```
+
+---
+
+## [Exercise 3 - percolate query](#exercise3)
+
+Monitoring prices of store items
 
 ---
 
