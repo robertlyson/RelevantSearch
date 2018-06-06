@@ -833,6 +833,33 @@ Monitoring prices of store items
 
 ---
 
+# part 1 of 3
+
+Job to do:
+Create index with proper mapping.
+
+```MappingIsCreatedCorrectly``` should by green.
+
+---
+
+# part 2 of 3
+
+Job to do:
+Register query as percolate query.
+
+Fix ```RegisterPriceAlertQuery``` test.
+
+---
+
+# part 3 of 3
+
+Job to do:
+Check if there are any percolate documents registered in elasticsearch.
+
+Make sure ```UpdatingTeslaItemTo90ShouldRiseAlert``` test is passing.
+
+---
+
 ## [I want more](#i-want-more)
 
 - Elasticsearch: The Definitive Guide https://www.elastic.co/guide/en/elasticsearch/guide/2.x/index.html
