@@ -578,7 +578,7 @@ PUT /attractions/restaurant/3
 
 ## Filtering by geo point
 
-- geo_bounding_box
+- **geo_bounding_box**
 Find geo-points that fall within the specified rectangle.
 - **geo_distance**
 Find geo-points within the specified distance of a central point.
@@ -586,6 +586,34 @@ Find geo-points within the specified distance of a central point.
 Find geo-points within a specified minimum and maximum distance from a central point.
 - geo_polygon
 Find geo-points that fall within the specified polygon. This filter is very expensive. If you find yourself wanting to use it, you should be looking at geo-shapes instead.
+
+---
+
+## Geo Bounding Box
+
+```json
+GET /attractions/restaurant/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_bounding_box": {
+          "location": { 
+            "top_left": {
+              "lat":  40.8,
+              "lon": -74.0
+            },
+            "bottom_right": {
+              "lat":  40.7,
+              "lon": -73.0
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ---
 
@@ -737,14 +765,14 @@ What is that?
 ## Percolate Query 2 of 4
 
 Standard flow: 
-**Document** -> indexing -> query -> searching -> do we have matching **documents**?
+**Document** -> indexing -> query -> searching -> do we have matching **documents** for **query**?
 
 ---
 
 ## Percolate Query 3 of 4
 
 Percolate flow: 
-**Query** -> indexing -> document -> searching -> do we have matching **queries**?
+**Query** -> indexing -> document -> searching -> do we have matching **queries** for **document**?
 
 ---
 
@@ -829,7 +857,8 @@ GET /my-index/_search
 
 ## [Exercise 3 - percolate query](#exercise3)
 
-Monitoring prices of store items
+Monitoring prices of store items.
+Flow diagram: https://sketchboard.me/HA4nBAR8smyp#/
 
 ---
 
