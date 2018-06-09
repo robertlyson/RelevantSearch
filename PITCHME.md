@@ -182,14 +182,36 @@ We will try to fix it later on .. I promise.
 
 ---
 
+## [Let's meet elasticsearch](#lets-meet-elasticsearch)
+
+--- 
+
+Made by Elastic company.
+![image](https://user-images.githubusercontent.com/2392583/41193412-859f3972-6c0b-11e8-8491-ef0b558c7685.png)
+![image](https://user-images.githubusercontent.com/2392583/41193419-9f4b360a-6c0b-11e8-8b29-21baf688eec0.png)
+
+---
+
+Some facts about elasticsearch:
+
+- database/search engine
+- based on lucene
+- simplify very complex lucene API with REST API
+- distributed by nature
+- OSS
+
+---
+
 # use cases 1/2
+
+So, for what we can use it?
 
 - realtime search
 - very flexible/configurable search
 - faceted search (https://www.euro.com.pl/zlewozmywaki,_Schock,g!zlewozmywak-okragly.bhtml)
 - reporting
 - alerting
-- monitoring(logstash, beats, kibana)
+- monitoring: apps, servers, resources
 - matching systems
 - autocompletion
 
@@ -203,16 +225,6 @@ today:
 
 ---
 
-## [Let's meet elasticsearch](#lets-meet-elasticsearch)
-
----
-
-some facts about elasticsearch:
-- based on lucene
-- simplify very complex lucene API with REST API
-- distributed by nature
-
----
 
 ## Document based
 
@@ -239,7 +251,7 @@ We will talk more about this process in the relevant search section.
 
 ---
 
-# 1/6
+# 1/3
 
 curl from cmd 
 ```
@@ -248,7 +260,7 @@ curl -XGET http://localhost:9200
 
 ---
 
-# 2/6
+# 2/3
 
 kibana and dev tools
 
@@ -257,15 +269,19 @@ This is a simple query returning 10 documents from all ES indices.
 
 ---
 
-# 3/6
+# 3/3
 
-elasticseatch clients - in our case that will be NEST
+elasticseatch clients - in our case that will be NEST, but there are others:
+Java, PHP, Python, Ruby, Erlang, Haskell ..
+
 
 ---
 
-# 4/6
+## NEST
 
-Client init:
+# 1/3
+
+First things, first - client init:
 ```csharp
 var uri = new Uri("http://localhost:9200");
 var settings = new ConnectionSettings(uri);
@@ -276,7 +292,7 @@ var client = new ElasticClient(settings);
 
 ---
 
-# 5/6
+# 2/3
 
 With NEST we have two options to write requests
 
@@ -291,7 +307,7 @@ var searchResponse = client.Search<Project>(s => s
 
 ---
 
-# 6/6
+# 3/3
 
 Obiect initializer syntax:
 ```
