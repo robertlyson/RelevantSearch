@@ -208,7 +208,7 @@ So, for what we can use it?
 
 - realtime search
 - very flexible/configurable search
-- faceted search (https://www.euro.com.pl/zlewozmywaki,_Schock,g!zlewozmywak-okragly.bhtml)
+- faceted search: https://bit.ly/2JspJk4
 - reporting
 - alerting
 - monitoring: apps, servers, resources
@@ -343,12 +343,13 @@ PUT /megacorp/employee/1
 
 # 2/3
 
-In NEST you can index document by doing(I'll do examples with fluent api)
+In NEST you can index document by doing:
 
 ```csharp
 elasticClient.Index(
     new Employee
     {
+        Id = 1,
         FirstName = "John",
         LastName = "Smith",
         Age = 25,
@@ -386,6 +387,8 @@ GET /megacorp/employee/1
 ---
 
 # 2/2
+
+With NEST:
 
 ```
 elasticClient.Get<Employee>(1);
