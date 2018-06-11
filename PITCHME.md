@@ -427,105 +427,25 @@ Handy for simple queries, command line scenarios.
 
 ---
 
-Relevance search is ...
-
-![image](https://kids.kaspersky.com/wp-content/uploads/2016/02/SafeSearch2.png)
+Relevance search is ... ?
 
 ---
 
-- Terms
-- Match
-- Multi match
-- Fuzzy
-- Bool Query
-- Synonyms 
+# Case study 1/2
 
---- 
-
-# Match 1/
+![image](https://user-images.githubusercontent.com/2392583/41219086-8f62d56a-6d5d-11e8-82d4-7944df7d4169.png)
 
 ---
 
-# Terms 1/4
+# Case study 2/2
 
-Let's find certain product id
-
-```json
-POST /my_store/products/_bulk
-{ "index": { "_id": 1 }}
-{ "price" : 10, "productID" : "XHDK-A-1293-#fJ3" }
-{ "index": { "_id": 2 }}
-{ "price" : 20, "productID" : "KDKE-B-9947-#kL5" }
-{ "index": { "_id": 3 }}
-{ "price" : 30, "productID" : "JODL-X-1937-#pV7" }
-{ "index": { "_id": 4 }}
-{ "price" : 30, "productID" : "QQPX-R-3956-#kL5" }
-```
----
-
-# Terms 2/4
-
-```json
-GET /my_store/products/_search
-{
-  "query": {
-    "match": {
-      "productID": "QQPX-R-3956-#kL5"
-    }
-  }
-}
-```
-
-Ups ..
+![image](https://user-images.githubusercontent.com/2392583/41219175-d58e1432-6d5d-11e8-91ae-1eec2a0385e1.png)
 
 ---
 
-# Terms 3/4
+# Fix it with elasticsearch
 
-```json
-GET /my_store/products/_search
-{
-  "query": {
-    "term": {
-      "productID.keyword": {
-        "value": "QQPX-R-3956-#aD8"
-      }
-    }
-  }
-}
-```
-
----
-
-# Terms 4/4
-
-```json
-
-GET /my_store/products/_search
-{
-  "query": {
-    "constant_score": {
-      "filter": {
-        "term": {
-          "productID.keyword": "QQPX-R-3956-#aD8"
-        }
-      }
-    }
-  }
-}
-```
-
----
-
-# Fuzzy 1/
-
----
-
-# Bool Query 1/
-
----
-
-# Synonyms support
+https://gist.github.com/robertlyson/79615e606a304a0416da83c4769c1153
 
 ---
 
