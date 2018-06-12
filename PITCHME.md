@@ -431,21 +431,16 @@ Relevance search is ... ?
 
 ---
 
-# Case study 1/3
+# Let's we want to improve
 
 ![image](https://user-images.githubusercontent.com/2392583/41219086-8f62d56a-6d5d-11e8-82d4-7944df7d4169.png)
 
 ---
 
-# Case study 2/3
+# My issues with nuget search
 
-![image](https://user-images.githubusercontent.com/2392583/41219175-d58e1432-6d5d-11e8-91ae-1eec2a0385e1.png)
-
----
-
-# Case study 3/3
-
-For query **elasticsearch** we want package **NEST** to show up on the first place.
+- for query elasticsearch official client is listed 4th and NEST is not event there
+- can't handle typos, no results for query elasti**sc**earch
 
 ---
 
