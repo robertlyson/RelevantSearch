@@ -431,24 +431,601 @@ Relevance search is ... ?
 
 ---
 
-# Let's we want to improve
+# Let's see what we want to improve 1/2
 
 ![image](https://user-images.githubusercontent.com/2392583/41219086-8f62d56a-6d5d-11e8-82d4-7944df7d4169.png)
 
 ---
 
+# Let's see what we want to improve 2/3
+
+![image](https://user-images.githubusercontent.com/2392583/41368390-167e13bc-6f42-11e8-9ecf-70bfdf20516d.png)
+
+---
+
+# Let's see what we want to improve 3/3
+
+![image](https://user-images.githubusercontent.com/2392583/41368312-e169781a-6f41-11e8-9b49-c03d6037c702.png)
+
+---
+
 # My issues with nuget search
 
-- for query elasticsearch official client is listed 4th and NEST is not event there
+- for query elasticsearch official client is listed on 4th position and NEST is not event there
 - can't handle typos, no results for query elasti**sc**earch
 
 ---
 
 # Fix it with elasticsearch
 
-https://gist.github.com/robertlyson/79615e606a304a0416da83c4769c1153
+---
+
+# Part 1 of 20
+
+<!-- $size: A2 -->
+
+```json
+DELETE nuget 
+
+PUT nuget
+{
+    "settings" : {
+        "index" : {
+            "number_of_shards" : 1
+        }
+    }
+}
+
+POST _bulk
+{"index":{"_index":"nuget","_type":"package","_id":"ElasticSearch"}}
+{"id":"ElasticSearch","description":"Elasticsearch is a flexible and powerful open source, distributed, real-time search and analytics engine.","downloadCount":6669}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.Connection.Thrift"}}
+{"id":"Elasticsearch.Net.Connection.Thrift","description":"An IConnection implementation that utilizes Apache Thrift to talk with elasticsearch","downloadCount":12747}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.Connection.HttpClient"}}
+{"id":"Elasticsearch.Net.Connection.HttpClient","description":"An IConnection implementation that uses System.Net.Http.HttpClient to talk with elasticsearch","downloadCount":8917}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net"}}
+{"id":"Elasticsearch.Net","description":"Elasticsearch.Net","downloadCount":3640838}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.JsonNET"}}
+{"id":"Elasticsearch.Net.JsonNET","description":"This package is only useful if you use the low level client ONLY and do not use NEST but would like to use JSON.NET as your serializer","downloadCount":17511}
+{"index":{"_index":"nuget","_type":"package","_id":"ElasticSearch.Diagnostics"}}
+{"id":"ElasticSearch.Diagnostics","description":"TraceListener for ElasticSearch and kibana","downloadCount":7521}
+{"index":{"_index":"nuget","_type":"package","_id":"Glimpse.ElasticSearch"}}
+{"id":"Glimpse.ElasticSearch","description":"A simple Glimpse plugin for ElasticSearch. It shows queries and response times.","downloadCount":5685}
+{"index":{"_index":"nuget","_type":"package","_id":"NEST"}}
+{"id":"NEST","description":"Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net","downloadCount":2860924}
+{"index":{"_index":"nuget","_type":"package","_id":"MiniProfiler.Elasticsearch"}}
+{"id":"MiniProfiler.Elasticsearch","description":"Elasticsearch.Net and NEST client for logging to MiniProfiler.","downloadCount":1132}
+{"index":{"_index":"nuget","_type":"package","_id":"NEST.Watcher"}}
+{"id":"NEST.Watcher","description":"Watcher is a plugin for Elasticsearch that provides alerting and notifications based on changes in your data. This NuGet package extends NEST, allowing you to interface with the Watcher plugin.","downloadCount":1576}
+{"index":{"_index":"nuget","_type":"package","_id":"AutoMapper"}}
+{"id":"AutoMapper","description":"A convention-based object-object mapper.","downloadCount":19278096}
+{"index":{"_index":"nuget","_type":"package","_id":"Newtonsoft.Json"}}
+{"id":"Newtonsoft.Json","description":"A convention-based object-object mapper.","downloadCount":126514991}
+```
 
 ---
+
+# Part 2 of 20
+
+<!-- $size: 16:9 -->
+
+Is data in?
+
+```json
+GET nuget/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+---
+
+# Part 3 of 20
+
+Can we go home? Are we better than nuget search already?
+
+```json
+GET /nuget/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "elasticsearch",
+      "fields": ["id","description"]
+    }
+  }
+}
+```
+
+---
+
+# Part 4 of 20
+
+Not really
+1. first result is not official client .. not quite popular, only 6669 downloads
+2. elasticsearch.net is not even there!
+3. NEST is on the list .. that's good
+
+---
+
+# Part 5 of 20
+
+So, why elasticsearch.net is not listed?
+
+```
+GET _analyze
+{
+  "analyzer" : "standard",
+  "text" : "Elasticsearch.Net"
+}
+```
+
+---
+
+# Part 6 of 20
+
+Custom analyzer to the rescue.
+
+<!-- $size: A2 -->
+
+```
+DELETE nuget
+
+PUT nuget
+{
+    "settings": {
+        "index": {
+            "number_of_shards" : 1,
+            "analysis": {
+                "char_filter": {
+                    "my_pattern": {
+                        "type": "pattern_replace",
+                        "pattern": "\\.",
+                        "replacement": " "
+                    }
+                },
+                "analyzer": {
+                    "my_analyzer": {
+                         "char_filter": [
+                            "my_pattern"
+                        ],
+                        "tokenizer": "standard",
+                        "filter": ["lowercase"]
+                    }
+                }
+            }
+        }
+    },
+    "mappings": {
+        "package": {
+            "properties": {
+                "id": {
+                    "type": "text",
+                    "analyzer": "my_analyzer"
+                },
+                "description": {
+                    "type": "text",
+                    "analyzer": "my_analyzer"
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+# Part 7 of 20
+
+<!-- $size: 16:9 -->
+
+Hopefully our analyzer knows how to deal with dots.
+
+```
+GET nuget/_analyze
+{
+  "analyzer" : "my_analyzer",
+  "text" : "Elasticsearch.Net"
+}
+```
+
+---
+
+# Part 8 of 20
+
+<!-- $size: A3 -->
+
+And idexing one more time ..
+
+```json
+POST _bulk
+{"index":{"_index":"nuget","_type":"package","_id":"ElasticSearch"}}
+{"id":"ElasticSearch","description":"Elasticsearch is a flexible and powerful open source, distributed, real-time search and analytics engine.","downloadCount":6669}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.Connection.Thrift"}}
+{"id":"Elasticsearch.Net.Connection.Thrift","description":"An IConnection implementation that utilizes Apache Thrift to talk with elasticsearch","downloadCount":12747}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.Connection.HttpClient"}}
+{"id":"Elasticsearch.Net.Connection.HttpClient","description":"An IConnection implementation that uses System.Net.Http.HttpClient to talk with elasticsearch","downloadCount":8917}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net"}}
+{"id":"Elasticsearch.Net","description":"Elasticsearch.Net","downloadCount":3640838}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.JsonNET"}}
+{"id":"Elasticsearch.Net.JsonNET","description":"This package is only useful if you use the low level client ONLY and do not use NEST but would like to use JSON.NET as your serializer","downloadCount":17511}
+{"index":{"_index":"nuget","_type":"package","_id":"ElasticSearch.Diagnostics"}}
+{"id":"ElasticSearch.Diagnostics","description":"TraceListener for ElasticSearch and kibana","downloadCount":7521}
+{"index":{"_index":"nuget","_type":"package","_id":"Glimpse.ElasticSearch"}}
+{"id":"Glimpse.ElasticSearch","description":"A simple Glimpse plugin for ElasticSearch. It shows queries and response times.","downloadCount":5685}
+{"index":{"_index":"nuget","_type":"package","_id":"NEST"}}
+{"id":"NEST","description":"Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net","downloadCount":2860924}
+{"index":{"_index":"nuget","_type":"package","_id":"MiniProfiler.Elasticsearch"}}
+{"id":"MiniProfiler.Elasticsearch","description":"Elasticsearch.Net and NEST client for logging to MiniProfiler.","downloadCount":1132}
+{"index":{"_index":"nuget","_type":"package","_id":"NEST.Watcher"}}
+{"id":"NEST.Watcher","description":"Watcher is a plugin for Elasticsearch that provides alerting and notifications based on changes in your data. This NuGet package extends NEST, allowing you to interface with the Watcher plugin.","downloadCount":1576}
+{"index":{"_index":"nuget","_type":"package","_id":"AutoMapper"}}
+{"id":"AutoMapper","description":"A convention-based object-object mapper.","downloadCount":19278096}
+{"index":{"_index":"nuget","_type":"package","_id":"Newtonsoft.Json"}}
+{"id":"Newtonsoft.Json","description":"A convention-based object-object mapper.","downloadCount":126514991}
+```
+
+---
+
+# Part 9 of 20
+
+Is it something better?
+
+```
+GET /nuget/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "elasticsearch",
+      "fields": ["id","description"]
+    }
+  }
+}
+```
+
+---
+
+# Part 10 of 20
+
+Not much better, only NEST is a little bit higher.
+
+What about boosting id field as it seems more important?
+
+```
+GET /nuget/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "elasticsearch",
+      "fields": ["id^2","description"]
+    }
+  }
+}
+```
+
+---
+
+# Part 11 of 20
+
+Promising, let's consider download count as a score boost.
+
+```
+GET nuget/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": "elasticsearch",
+          "fields": [
+            "id^2",
+            "description"
+          ]
+        }
+      },
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "downloadCount",
+            "factor": 0.00001
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+# Part 12 of 20
+
+Uff, beautiful. How it's working for NEST query?
+
+```json
+GET nuget/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": "nest",
+          "fields": [
+            "id^2",
+            "description"
+          ]
+        }
+      },
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "downloadCount",
+            "factor": 0.00001
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+# Part 13 of 20
+
+No mention of elasticsearch.net. 
+So maybe let's create synonym for NEST ..
+
+---
+
+# Part 14 of 20
+
+<!-- $size: A2 -->
+
+```
+DELETE nuget
+
+PUT nuget
+{
+    "settings": {
+        "index": {
+            "number_of_shards" : 1,
+            "analysis": {
+                "char_filter": {
+                    "my_pattern": {
+                        "type": "pattern_replace",
+                        "pattern": "\\.",
+                        "replacement": " "
+                    }
+                },
+                "analyzer": {
+                    "my_analyzer": {
+                         "char_filter": [
+                            "my_pattern"
+                        ],
+                        "tokenizer": "standard",
+                        "filter": ["lowercase","synonym"]
+                    }
+                },
+                "filter" : {
+                  "synonym": {
+                    "type": "synonym",
+                    "synonyms": [
+                      "nest => elasticsearch"
+                      ]
+                  }
+                }
+            }
+        }
+    },
+    "mappings": {
+        "package": {
+            "properties": {
+                "id": {
+                    "type": "text",
+                    "analyzer": "my_analyzer"
+                },
+                "description": {
+                    "type": "text",
+                    "analyzer": "my_analyzer"
+                }
+            }
+        }
+    }
+}
+```
+
+# Part 15 of 20
+
+<!-- $size: 16:9 -->
+
+```
+GET nuget/_analyze
+{
+  "analyzer" : "my_analyzer",
+  "text" : "nest"
+}
+```
+
+---
+
+# Part 16 of 20
+
+<!-- $size: A2 -->
+
+Works like a charm, let's index data one more time ..
+
+```
+POST _bulk
+{"index":{"_index":"nuget","_type":"package","_id":"ElasticSearch"}}
+{"id":"ElasticSearch","description":"Elasticsearch is a flexible and powerful open source, distributed, real-time search and analytics engine.","downloadCount":6669}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.Connection.Thrift"}}
+{"id":"Elasticsearch.Net.Connection.Thrift","description":"An IConnection implementation that utilizes Apache Thrift to talk with elasticsearch","downloadCount":12747}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.Connection.HttpClient"}}
+{"id":"Elasticsearch.Net.Connection.HttpClient","description":"An IConnection implementation that uses System.Net.Http.HttpClient to talk with elasticsearch","downloadCount":8917}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net"}}
+{"id":"Elasticsearch.Net","description":"Elasticsearch.Net","downloadCount":3640838}
+{"index":{"_index":"nuget","_type":"package","_id":"Elasticsearch.Net.JsonNET"}}
+{"id":"Elasticsearch.Net.JsonNET","description":"This package is only useful if you use the low level client ONLY and do not use NEST but would like to use JSON.NET as your serializer","downloadCount":17511}
+{"index":{"_index":"nuget","_type":"package","_id":"ElasticSearch.Diagnostics"}}
+{"id":"ElasticSearch.Diagnostics","description":"TraceListener for ElasticSearch and kibana","downloadCount":7521}
+{"index":{"_index":"nuget","_type":"package","_id":"Glimpse.ElasticSearch"}}
+{"id":"Glimpse.ElasticSearch","description":"A simple Glimpse plugin for ElasticSearch. It shows queries and response times.","downloadCount":5685}
+{"index":{"_index":"nuget","_type":"package","_id":"NEST"}}
+{"id":"NEST","description":"Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net","downloadCount":2860924}
+{"index":{"_index":"nuget","_type":"package","_id":"MiniProfiler.Elasticsearch"}}
+{"id":"MiniProfiler.Elasticsearch","description":"Elasticsearch.Net and NEST client for logging to MiniProfiler.","downloadCount":1132}
+{"index":{"_index":"nuget","_type":"package","_id":"NEST.Watcher"}}
+{"id":"NEST.Watcher","description":"Watcher is a plugin for Elasticsearch that provides alerting and notifications based on changes in your data. This NuGet package extends NEST, allowing you to interface with the Watcher plugin.","downloadCount":1576}
+{"index":{"_index":"nuget","_type":"package","_id":"AutoMapper"}}
+{"id":"AutoMapper","description":"A convention-based object-object mapper.","downloadCount":19278096}
+{"index":{"_index":"nuget","_type":"package","_id":"Newtonsoft.Json"}}
+{"id":"Newtonsoft.Json","description":"A convention-based object-object mapper.","downloadCount":126514991}
+```
+
+---
+
+# Part 17 of 20
+
+<!-- $size: A2 -->
+
+Do we have it?
+
+```
+GET nuget/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": "nest",
+          "fields": [
+            "id^2",
+            "description"
+          ]
+        }
+      },
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "downloadCount",
+            "factor": 0.00001
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+# Part 18 of 20
+
+Hmm, nest is second?
+Maybe function boost is doing too much pressure on download count?
+
+```
+GET nuget/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": "nest",
+          "fields": [
+            "id^2",
+            "description"
+          ]
+        }
+      },
+      "max_boost": 10, 
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "downloadCount",
+            "factor": 0.00001
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+# Part 19 of 20
+
+Are we fine with typos?
+
+```
+GET nuget/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": "elastiscearch",
+          "fields": [
+            "id^2",
+            "description"
+          ]
+        }
+      },
+      "max_boost": 10, 
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "downloadCount",
+            "factor": 0.00001
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+# Part 20 of 20
+
+<!-- $size: A2 -->
+
+We need to add fuzziness parameter!
+```
+GET nuget/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match": {
+          "query": "elastiscearch",
+          "fuzziness": 1,
+          "fields": [
+            "id^2",
+            "description"
+          ]
+        }
+      },
+      "max_boost": 10, 
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "downloadCount",
+            "factor": 0.00001
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+<!-- $size: 16:9 -->
 
 # Inverted index 1/2
 
