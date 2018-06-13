@@ -431,19 +431,17 @@ Relevance search is ... ?
 
 ---
 
-# Let's see what we want to improve 1/2
+# Let's see what we want to improve
+
+---
 
 ![image](https://user-images.githubusercontent.com/2392583/41219086-8f62d56a-6d5d-11e8-82d4-7944df7d4169.png)
 
 ---
 
-# Let's see what we want to improve 2/3
-
 ![image](https://user-images.githubusercontent.com/2392583/41368390-167e13bc-6f42-11e8-9ecf-70bfdf20516d.png)
 
 ---
-
-# Let's see what we want to improve 3/3
 
 ![image](https://user-images.githubusercontent.com/2392583/41368312-e169781a-6f41-11e8-9b49-c03d6037c702.png)
 
