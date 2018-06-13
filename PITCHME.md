@@ -706,7 +706,7 @@ GET /nuget/_search
 
 # Part 11 of 20
 
-Promising, let's consider download count as a score boost.
+Promising, let's consider download count as a boost.
 
 ```
 GET nuget/_search
