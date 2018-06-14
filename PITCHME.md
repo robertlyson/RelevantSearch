@@ -431,6 +431,10 @@ Relevance search is ... ?
 
 ---
 
+# How elasticsearch is helping?
+
+---
+
 # Let's see what we want to improve
 
 ---
