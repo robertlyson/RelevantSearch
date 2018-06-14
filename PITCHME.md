@@ -281,7 +281,7 @@ Java, PHP, Python, Ruby, Erlang, Haskell ..
 
 # 1/3
 
-First things, first - client init:
+First things first - client init:
 ```csharp
 var uri = new Uri("http://localhost:9200");
 var settings = new ConnectionSettings(uri);
@@ -1093,7 +1093,7 @@ Make our search typo aware. For query **mogran** we want to match branches with 
 ```git checkout part5```
 
 Job to do:
-**LocationName** should be more importan than **LocationContant**. 
+**LocationName** should be more importan than **LocationContact**. 
 
 ---
 
