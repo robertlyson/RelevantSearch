@@ -331,9 +331,11 @@ var searchRequest = new SearchRequest<Project>
 
 ## Indexing documents
 
+Let's try it in Kibana.
+
 ---
 
-# 1/3
+# 1/4
 
 ```
 PUT /megacorp/employee/1
@@ -351,7 +353,7 @@ PUT /megacorp/employee/1
 
 ---
 
-# 2/3
+# 2/4
 
 In NEST you can index document by doing:
 
@@ -370,7 +372,15 @@ elasticClient.Index(
 
 ---
 
-# 3/3
+# 3/4
+
+Index mapping
+
+```GET megacorp/_mapping```
+
+---
+
+# 4/4
 
 bulk operations
 
