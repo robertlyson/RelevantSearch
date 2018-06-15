@@ -212,7 +212,7 @@ So, for what we can use it?
 
 - realtime search
 - very flexible/configurable full text search
-- faceted search: https://bit.ly/2JspJk4
+- faceted search: https://bit.ly/2laAWr9
 - reporting
 - alerting
 - monitoring: apps, servers, resources
