@@ -1,9 +1,14 @@
 # Elasticsearch & .Net
 
-![](https://www.elastic.co/static/images/elastic-logo-200.png)
+![image](https://www.elastic.co/static/images/elastic-logo-200.png)
 
 ---
+
 <!-- page_number: true -->
+
+I'm Robert
+
+---
 
 # Outline
 
@@ -423,6 +428,12 @@ Handy for simple queries, command line scenarios.
 
 ---
 
+# Before we will move on please start cloning this repo
+
+```git clone https://github.com/robertlyson/RelevantSearch.git```
+
+---
+
 ## [What is relevant search?](#what-is-relevant-search)
 
 ---
@@ -432,6 +443,8 @@ Relevance search is ... ?
 ---
 
 # How elasticsearch is helping?
+
+![image](https://user-images.githubusercontent.com/2392583/41398262-0f9c1d6c-6fb7-11e8-9c9a-02e0fb4020ac.png)
 
 ---
 
