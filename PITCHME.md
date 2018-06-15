@@ -6,7 +6,10 @@
 
 <!-- page_number: true -->
 
-I'm Robert
+# Hi
+
+email: robertlyson
+twitter: @robertlyson
 
 ---
 
@@ -20,6 +23,14 @@ I'm Robert
 - [Exercise 2 - coffeshop finder](#exercise2)
 - [Exercise 3 - percolate query](#exercise3)
 - [I want more](#i-want-more)
+
+---
+
+# Few questions to you
+
+- are you familiar with .net?
+- have you ever played with elasticsearch before?
+- are you using elasticsearch in your projects?
 
 ---
 
@@ -189,12 +200,6 @@ We will try to fix it later on .. I promise.
 
 ## [Let's meet elasticsearch](#lets-meet-elasticsearch)
 
---- 
-
-Made by Elastic company.
-![image](https://user-images.githubusercontent.com/2392583/41193412-859f3972-6c0b-11e8-8491-ef0b558c7685.png)
-![image](https://user-images.githubusercontent.com/2392583/41193419-9f4b360a-6c0b-11e8-8b29-21baf688eec0.png)
-
 ---
 
 Some facts about elasticsearch:
@@ -204,6 +209,7 @@ Some facts about elasticsearch:
 - simplify very complex lucene API with REST API
 - distributed by nature
 - OSS
+- who is using it: wikipedia, spotify, netflix etc
 
 ---
 
@@ -227,6 +233,12 @@ So, for what we can use it?
 today:
 - very flexible/configurable search
 - alerting
+
+--- 
+
+Made by Elastic company.
+![image](https://user-images.githubusercontent.com/2392583/41193412-859f3972-6c0b-11e8-8491-ef0b558c7685.png)
+![image](https://user-images.githubusercontent.com/2392583/41193419-9f4b360a-6c0b-11e8-8b29-21baf688eec0.png)
 
 ---
 
