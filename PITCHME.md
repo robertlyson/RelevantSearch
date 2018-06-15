@@ -485,6 +485,8 @@ Relevance search is ... ?
 
 # Fix it with elasticsearch
 
+https://gist.github.com/robertlyson/79615e606a304a0416da83c4769c1153
+
 ---
 
 # Part 1 of 20
