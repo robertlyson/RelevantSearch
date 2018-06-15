@@ -9,6 +9,7 @@
 # Hi
 
 email: robertlyson
+
 twitter: @robertlyson
 
 ---
@@ -110,7 +111,7 @@ We are done!
 
 ---
 
-# 1/7
+# 1/6
 
 Requirement was simple, allow users to search for branches* by name. 
 So we did it!
@@ -119,7 +120,7 @@ So we did it!
 
 ---
 
-# 2/7
+# 2/6
 
 ```sql
 SELECT TOP 1 [Id]
@@ -140,7 +141,7 @@ SELECT TOP 1 [Id]
 
 ---
 
-# 3/7
+# 3/6
 
 Worked very well.
 
@@ -148,23 +149,15 @@ Worked very well.
 
 ---
 
-# 4/7
+# 4/6
 
 Unfortunately, few days later after we deployed this feature to users, it turned out something is wrong. Someone typed `Morgan` in search box and got as a result:
 
 ![image](https://user-images.githubusercontent.com/2392583/40502676-fe739c4e-5f8b-11e8-8bb9-ece82b83f7e8.png)
 
----
+--- 
 
-# 5/7
-
-WAT. There is no even `m` in this location name!
-
-After some time spent on investigating the issue, we discovered someone extended above query with one more case
-
----
-
-# 6/7
+# 5/6
 
 ```sql
 SELECT TOP 1 [Id]
@@ -186,7 +179,7 @@ SELECT TOP 1 [Id]
 
 ---
 
-# 7/7
+# 6/6
 
 ```sql
 or LOWER(LocationContact) like '%morgan%'
@@ -204,7 +197,7 @@ We will try to fix it later on .. I promise.
 
 Some facts about elasticsearch:
 
-- database/search engine
+- NoSQL database / full text search engine
 - based on lucene
 - simplify very complex lucene API with REST API
 - distributed by nature
@@ -218,7 +211,7 @@ Some facts about elasticsearch:
 So, for what we can use it?
 
 - realtime search
-- very flexible/configurable search
+- very flexible/configurable full text search
 - faceted search: https://bit.ly/2JspJk4
 - reporting
 - alerting
