@@ -1541,7 +1541,7 @@ Make sure ```UpdatingTeslaItemTo90ShouldRiseAlert``` test is passing.
 
 ## Last word
 
-Please give us your feedback! [Click](https://docs.google.com/forms/d/16R62Q5J6zpd5LtMCGs1LbNVMQ8uffW_JQ6yKzMKae4s/viewform?edit_requested=true)
+Please give us your feedback! https://bit.ly/2sX7MjB
 
 ![image](https://cdn.discordapp.com/attachments/434287216068395008/449467777229783051/static_qr_code_without_logo.jpg)
 
