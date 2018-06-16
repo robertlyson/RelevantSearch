@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -110,7 +111,7 @@ namespace RelevantSearch.DataIndexer
                             LocationZipCode = strings[6],
                             LocationContact = strings[7],
                             IsAtm = Convert.ToBoolean(strings[8]),
-                            Location = new GeoLocation(Convert.ToDouble(goe[0]), Convert.ToDouble(goe[1]))
+                            //Location = new GeoLocation(Convert.ToDouble(goe[0].Replace(",",".")), Convert.ToDouble(goe[1].Replace(",", ".")))
                         };
                     }
                 }
