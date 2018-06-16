@@ -8,7 +8,7 @@
 
 # Hi
 
-email: robertlyson
+email: robertlyson@gmail.com
 
 twitter: @robertlyson
 
@@ -281,7 +281,7 @@ This is a simple query returning 10 documents from all ES indices.
 
 # 3/3
 
-elasticseatch clients - in our case that will be NEST, but there are others:
+elasticsearch clients - in our case that will be NEST, but there are others:
 Java, PHP, Python, Ruby, Erlang, Haskell ..
 
 
