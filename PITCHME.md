@@ -1535,7 +1535,8 @@ Make sure ```UpdatingTeslaItemTo90ShouldRiseAlert``` test is passing.
 ## [I want more](#i-want-more)
 
 - Elasticsearch: The Definitive Guide https://www.elastic.co/guide/en/elasticsearch/guide/2.x/index.html
-- NuSearch https://github.com/elastic/elasticsearch-net-example
+- Relevant Search: https://www.manning.com/books/relevant-search
+- NuSearch: https://github.com/elastic/elasticsearch-net-example
 
 ---
 
