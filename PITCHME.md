@@ -1382,7 +1382,7 @@ Job to do:
 Fix ```LocationIsOfTypeGeoPoint``` test.
 
 Job to do:
-- mapping - ```location``` field should of type ```goe_point```
+- mapping - ```location``` field should be of type ```goe_point```
 
 ---
 
@@ -1393,7 +1393,7 @@ Job to do:
 Fix ```FindCoffeeNearMe``` test.
 
 Job to do:
-- write query to find coffe shops near codeschool - ```GeoDistance``` filter
+- write query to find coffee shops near our location - ```GeoDistance``` filter
 - add sort to find nearest places
 
 ---
