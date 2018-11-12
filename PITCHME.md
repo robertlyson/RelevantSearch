@@ -1358,9 +1358,13 @@ Geohash? http://www.bigfastblog.com/geohash-intro
 
 ## [Exercise 2 - coffeshop finder](#exercise2)
 
+```git clone https://github.com/robertlyson/CoffeeFinderApp.git```
+
 ---
 
 # part 1 of 4
+
+```git clone https://github.com/robertlyson/CoffeeFinderApp.git -b exercise1```
 
 Fix ```DataHasBeenIndexedIntoElasticsearch``` test.
 
@@ -1373,6 +1377,8 @@ Job to do:
 
 # part 2 of 4
 
+```git clone https://github.com/robertlyson/CoffeeFinderApp.git -b exercise2```
+
 Fix ```LocationIsOfTypeGeoPoint``` test.
 
 Job to do:
@@ -1381,6 +1387,8 @@ Job to do:
 ---
 
 # part 3 of 4
+
+```git clone https://github.com/robertlyson/CoffeeFinderApp.git -b exercise3```
 
 Fix ```FindCoffeeNearMe``` test.
 
@@ -1391,6 +1399,8 @@ Job to do:
 ---
 
 # part 4 of 4
+
+```git clone https://github.com/robertlyson/CoffeeFinderApp.git -b exercise4```
 
 Fix ```FindMyFavCoffeeNearMe``` test.
 
