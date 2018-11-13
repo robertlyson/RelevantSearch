@@ -38,8 +38,11 @@ twitter: @robertlyson
 # [Preparing Environment](#preparing-environment)
 
 Two ways:
+
 - local download/install
+
 or
+
 - docker compose
 
 ---
