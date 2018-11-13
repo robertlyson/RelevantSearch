@@ -83,6 +83,12 @@ Maku sure all is good by going to `http://localhost:5601` in your fav. browser. 
 
 ---
 
+## or docker
+
+https://gist.github.com/robertlyson/71e1d096597ed446836de9b084b3c913
+
+---
+
 ## dotnet core 2.0+
 
 https://www.microsoft.com/net/download/windows
