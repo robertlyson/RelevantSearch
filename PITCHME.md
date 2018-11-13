@@ -37,6 +37,9 @@ twitter: @robertlyson
 
 # [Preparing Environment](#preparing-environment)
 
+- local download/install
+- docker compose
+
 ---
 
 ## java 1.8.x
@@ -80,6 +83,12 @@ and also, follow instalation steps :) https://www.elastic.co/downloads/kibana
 Maku sure all is good by going to `http://localhost:5601` in your fav. browser. You should see something like
 
 ![capture](https://user-images.githubusercontent.com/2392583/39409275-7207374e-4be4-11e8-9c83-5306aa0ebc66.PNG)
+
+---
+
+## or docker
+
+https://gist.github.com/robertlyson/71e1d096597ed446836de9b084b3c913
 
 ---
 
