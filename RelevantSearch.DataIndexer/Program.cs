@@ -60,7 +60,8 @@ namespace RelevantSearch.DataIndexer
 
         private static void CreateIndex(ElasticClient elasticClient)
         {
-            var createIndexResponse = elasticClient.CreateIndex(elasticClient.ConnectionSettings.DefaultIndex);
+            var createIndexResponse = elasticClient.CreateIndex(elasticClient.ConnectionSettings.DefaultIndex,
+                i => i.Settings(s => s.NumberOfShards(1)));
             if (createIndexResponse.IsValid) Console.WriteLine($"New index {Strings.IndexName} created");
         }
 
@@ -68,6 +69,7 @@ namespace RelevantSearch.DataIndexer
         {
             var createIndexResponse = elasticClient
                 .CreateIndex(elasticClient.ConnectionSettings.DefaultIndex, i => i.Settings(s => s
+                    .NumberOfShards(1)
                     .Analysis(a => a
                         .Analyzers(an => an.Custom("synonyms_analyzer", aa => aa
                             .Tokenizer("standard")
