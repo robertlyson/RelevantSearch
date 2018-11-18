@@ -1366,7 +1366,15 @@ GET /attractions/restaurant/_search
 }
 ```
 
-Geohash? http://www.bigfastblog.com/geohash-intro
+Geohash? What the hell?(Next page) 
+
+---
+
+![image](https://dpzbhybb2pdcj.cloudfront.net/turnbull/Figures/04fig06_alt.jpg)
+
+(Source: relevant search book)
+
+More detailed description: http://www.bigfastblog.com/geohash-intro
 
 ---
 
