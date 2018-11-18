@@ -1370,8 +1370,7 @@ Geohash? What the hell?(Next page)
 
 ---
 
-![image](https://dpzbhybb2pdcj.cloudfront.net/turnbull/Figures/04fig06_alt.jpg)
-
+<img src="https://dpzbhybb2pdcj.cloudfront.net/turnbull/Figures/04fig06_alt.jpg" alt="drawing" width="40%"/>
 (Source: relevant search book)
 
 More detailed description: http://www.bigfastblog.com/geohash-intro
