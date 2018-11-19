@@ -495,7 +495,7 @@ Relevance search is ... ?
 
 # My issues with nuget search
 
-- for query elasticsearch official client is listed on 4th position and NEST is not event there
+- for query elasticsearch official client is listed on 4th position and NEST is not even there
 - can't handle typos, no results for query elasti**sc**earch
 
 ---
@@ -1171,6 +1171,8 @@ Combine together search technics: boosting, typos awareness and synonyms.
 ## Geo Point - hands on .. kibana
 
 ```json
+DELETE attractions
+
 PUT attractions
 
 PUT attractions/_mapping/restaurant
