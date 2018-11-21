@@ -1091,8 +1091,8 @@ https://sketchboard.me/BA33PjFmAmyz#/
 
 How to test relevant search?
 
-- Integration tests 
-- Ranking Evaluation API https://www.elastic.co/guide/en/elasticsearch/reference/6.2/search-rank-eval.html
+- Integration tests - accuracy 0/1
+- Ranking Evaluation API https://www.elastic.co/guide/en/elasticsearch/reference/6.2/search-rank-eval.html - accuracy 0..1
 
 ---
 
