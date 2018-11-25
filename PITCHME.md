@@ -1148,7 +1148,7 @@ Make our search typo aware. For query **mogran** we want to match branches with 
 ```git checkout part5```
 
 Job to do:
-**LocationName** should be more importan than **LocationContact**. 
+**LocationName** should be more important than **LocationContact**. 
 
 ---
 
@@ -1545,7 +1545,13 @@ Flow diagram: https://sketchboard.me/HA4nBAR8smyp#/
 
 ---
 
+git clone https://github.com/robertlyson/percolatequery
+
+---
+
 # part 1 of 3
+
+```git checkout part1```
 
 Job to do:
 Create index with proper mapping.
@@ -1556,6 +1562,8 @@ Create index with proper mapping.
 
 # part 2 of 3
 
+```git checkout part2```
+
 Job to do:
 Register query as percolate query.
 
@@ -1564,6 +1572,8 @@ Fix ```RegisterPriceAlertQuery``` test.
 ---
 
 # part 3 of 3
+
+```git checkout part3```
 
 Job to do:
 Check if there are any percolate documents registered in elasticsearch.
